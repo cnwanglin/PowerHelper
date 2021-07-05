@@ -91,5 +91,6 @@ namespace MyFirstapp
         {
             GetSystemPowerStatus(ref _powerStatus);
         }
+
     }
 }

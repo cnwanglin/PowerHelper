@@ -21,10 +21,38 @@ namespace MyFirstapp
             this.PointToScreen(p);
             this.Location = p;
         }
+        TestByWinRing0 t = new TestByWinRing0();
         int ii = 0;
 
         private void UpdateInfo(int flag)
         {
+            //#define IBFMASK	0x02
+            //#define OBFMASK	0x01
+
+            //#define WaitIBFE while(((inportb(0x66)) & (0x02)) == 0x02)
+
+            //#define WaitOBFF while(((inportb(0x66)) & (0x01)) == 0x00)
+
+            //unsigned char ReadECRAM(unsigned char Address)
+            //{
+            //    while (((inportb(0x66)) & (0x02)) == 0x02) ;
+            //    outportb(0x66, 0x80);
+            //    while (((inportb(0x66)) & (0x02)) == 0x02) ;
+            //    outportb(0x62, Address);
+            //    while (((inportb(0x66)) & (0x01)) == 0x00) ;
+            //    return inportb(0x62);
+            //}
+            
+            t.Initialize();
+            //t.ReadECRAM(62);
+
+
+
+
+
+
+
+
             PowerStatus power = new PowerStatus();
             this.textBox5.Text = power.PowerLineStatus.ToString();//是否充电
             string dianlaing = power.BatteryLifePercent.ToString();//电量百分比
@@ -112,9 +140,19 @@ namespace MyFirstapp
              e.Cancel = true;
             //最小化主窗口
             this.WindowState = FormWindowState.Minimized;
-            //不在系统任务栏显示主窗口图标
+            //不在系统任务栏显示主窗口图标                                     +  t.ReadECRAM(62)
             this.ShowInTaskbar = false;
-            notifyIcon2.ShowBalloonTip(2000, "最小化到托盘", "程序已经缩小到托盘，单击打开程序。", ToolTipIcon.Info);
+            notifyIcon2.ShowBalloonTip(2000, "最小化到托盘", "程序已经缩小到托盘，单击打开程序。"+"重要的显示：" , ToolTipIcon.Info);
+            Console.WriteLine(""
+                + t.ReadECRAM(0x62)
+                + " "
+                + t.ReadECRAM(0x63)
+                + " "
+                + t.ReadECRAM(0x64)
+                + " "
+                + t.ReadECRAM(0x65)
+                + " "
+                + t.ReadECRAM(0x66));
         }
 
 
